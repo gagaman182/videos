@@ -23,26 +23,32 @@ export default {
   computed: {
     menu() {
       return [
-        'General',
+        'บุคคลทั่วไป',
         [
           {
             to: '/',
             icon: 'desktop-mac',
-            label: 'Dashboard',
+            label: 'ภาวะกลืนลำบาก',
+            // updateMark: true,
+          },
+          {
+            to: '/opd',
+            icon: 'view-list',
+            label: 'ประวัติ',
           },
         ],
-        'Examples',
+        'เจ้าหน้าที่',
         [
-          {
-            action: 'dark-mode-toggle',
-            label: 'Dark / White',
-            icon: 'weather-night',
-          },
+          // {
+          //   action: 'dark-mode-toggle',
+          //   label: 'Dark / White',
+          //   icon: 'weather-night',
+          // },
           {
             to: '/tables',
             label: 'Tables',
             icon: 'table',
-            updateMark: true,
+            // updateMark: true,
           },
           {
             to: '/forms',
@@ -70,19 +76,19 @@ export default {
             ],
           },
         ],
-        'About',
-        [
-          {
-            href: 'https://admin-null-nuxt.justboil.me',
-            label: 'Premium Demo',
-            icon: 'credit-card',
-          },
-          {
-            href: 'https://justboil.me/bulma-admin-template/null-nuxt',
-            label: 'About',
-            icon: 'help-circle',
-          },
-        ],
+        // 'About',
+        // [
+        //   {
+        //     href: 'https://admin-null-nuxt.justboil.me',
+        //     label: 'Premium Demo',
+        //     icon: 'credit-card',
+        //   },
+        //   {
+        //     href: 'https://justboil.me/bulma-admin-template/null-nuxt',
+        //     label: 'About',
+        //     icon: 'help-circle',
+        //   },
+        // ],
       ]
     },
   },

@@ -4,9 +4,15 @@
       <div class="level">
         <div class="level-left">
           <div class="level-item">
-            <h1 class="title">
-              <slot />
-            </h1>
+            <article class="tile is-child notification is-warning">
+              <p class="title">
+                <b-icon
+                  v-if="icon"
+                  :icon="icon"
+                  custom-size="default"
+                /><slot />
+              </p>
+            </article>
           </div>
         </div>
         <div v-show="hasRightVisible" class="level-right">
@@ -26,6 +32,10 @@ export default {
     hasRightVisible: {
       type: Boolean,
       default: true,
+    },
+    icon: {
+      type: String,
+      default: null,
     },
   },
 }

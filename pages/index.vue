@@ -1,37 +1,71 @@
 <template>
   <div>
-    <title-bar :title-stack="titleStack" />
-    <hero-bar :has-right-visible="false">
-      Dashboard
+    <!-- <title-bar :title-stack="titleStack" /> -->
+    <hero-bar :has-right-visible="false" icon="monitor">
+      ภาวะกลืนลำบาก
     </hero-bar>
-    <section class="section is-main-section">
-      <tiles>
-        <card-widget
-          class="tile is-child"
-          type="is-primary"
-          icon="account-multiple"
-          :number="512"
-          label="Clients"
-        />
-        <card-widget
-          class="tile is-child"
-          type="is-info"
-          icon="cart-outline"
-          :number="7770"
-          prefix="$"
-          label="Sales"
-        />
-        <card-widget
-          class="tile is-child"
-          type="is-success"
-          icon="chart-timeline-variant"
-          :number="256"
-          suffix="%"
-          label="Performance"
-        />
-      </tiles>
 
+    <section class="section is-main-section">
       <card-component
+        title=" กลืนลำบาก บำบัดไม่ยาก หากรู้วิธี"
+        icon="monitor"
+        @header-icon-click="fillChartData"
+      >
+        <tiles>
+          <card-widget
+            class="tile is-child"
+            type="is-primary"
+            typebutton="is-info"
+            icon="monitor-dashboard"
+            label="ความรู้ทั่วไป/ความหมาย/อาการข้อควรระวัง"
+            link="/chanel/1"
+          />
+          <card-widget
+            class="tile is-child"
+            type="is-primary"
+            typebutton="is-info"
+            icon="seat-flat-angled"
+            label="การบำบัดฟื้นฟู"
+            link="/chanel/2"
+          />
+          <card-widget
+            class="tile is-child"
+            type="is-primary"
+            typebutton="is-info"
+            icon="food"
+            label="อาหารฝึกกลืน"
+            link="/chanel/3"
+          />
+        </tiles>
+
+        <tiles>
+          <card-widget
+            class="tile is-child"
+            type="is-primary"
+            typebutton="is-info"
+            icon="gas-cylinder"
+            label="การฝึกหายใจ"
+            link="/chanel/4"
+          />
+          <card-widget
+            class="tile is-child"
+            type="is-primary"
+            typebutton="is-info"
+            icon="tooth-outline"
+            label="การทำความสะอาดช่องปาก/ดูดเสมหะ"
+            link="/chanel/5"
+          />
+          <card-widget
+            class="tile is-child"
+            type="is-primary"
+            typebutton="is-info"
+            icon="hospital-building"
+            label="ติดต่อเรา"
+            link="/chanel/6"
+          />
+        </tiles>
+      </card-component>
+      <!-- <card-component
         title="Performance"
         icon="finance"
         header-icon="reload"
@@ -46,9 +80,9 @@
             :extra-options="defaultChart.extraOptions"
           />
         </div>
-      </card-component>
+      </card-component> -->
 
-      <card-component title="Clients" class="has-table has-mobile-sort-spaced">
+      <card-component title="ตาราง" class="has-table has-mobile-sort-spaced">
         <clients-table-sample
           :data-url="`${$router.options.base}data-sources/clients.json`"
         />
@@ -67,10 +101,12 @@ import CardWidget from '@/components/CardWidget'
 import CardComponent from '@/components/CardComponent'
 import LineChart from '@/components/Charts/LineChart'
 import ClientsTableSample from '@/components/ClientsTableSample'
+import ModalBox from '@/components/ModalBox'
 export default {
   name: 'Home',
   components: {
     ClientsTableSample,
+    ModalBox,
     LineChart,
     CardComponent,
     CardWidget,
@@ -88,7 +124,8 @@ export default {
   },
   computed: {
     titleStack() {
-      return ['Admin', 'Dashboard']
+      // return ['บุคคลทั่วไป', 'ภาวะกลืนลำบาก']
+      return ['ภาวะกลืนลำบาก']
     },
   },
   mounted() {
@@ -164,7 +201,7 @@ export default {
   },
   head() {
     return {
-      title: 'Dashboard — Admin Null Nuxt.js Bulma',
+      title: 'ภาวะกลืนลำบาก กลุ่มงานเวชกรรมฟื้นฟู โรงพยาบาลหาดใหญ่ ',
     }
   },
 }

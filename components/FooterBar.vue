@@ -5,8 +5,10 @@
         <div class="level-left">
           <div class="level-item">
             <div class="footer-copyright">
-              <b>&copy; {{ year }}, JustBoil.me</b> &mdash; Admin Null Nuxt.js
-              demo <span class="tag">v1.3.2</span>
+              <b>&copy; {{ year }}, ติดต่อสอบถามเพิ่มเติม</b> &mdash;
+              กลุ่มงานเวชกรรมฟื้นฟู โรงพยาบาลหาดใหญ่ 182 ถ.รัถการ ต.หาดใหญ่
+              อ.หาดใหญ่ จ. สงขลา โทร<span class="tag">074-273100</span>ต่อ
+              <span class="tag">8207</span>
             </div>
           </div>
         </div>

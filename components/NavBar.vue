@@ -9,7 +9,8 @@
       </a>
       <div class="navbar-item no-left-space-touch">
         <div class="control">
-          <input class="input" placeholder="Search everywhere..." />
+          <!-- <input class="input" placeholder="Search everywhere..." /> -->
+          <!-- <h1 class="subtitle">โรงพยาบาลหาดใหญ่</h1> -->
         </div>
       </div>
     </div>

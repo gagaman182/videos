@@ -156,6 +156,10 @@ export default {
     trashModal(trashObject) {
       this.trashObject = trashObject
       this.isModalActive = true
+      this.$buefy.snackbar.open({
+        message: 'ok',
+        queue: false,
+      })
     },
     trashConfirm() {
       this.isModalActive = false
@@ -166,6 +170,11 @@ export default {
     },
     trashCancel() {
       this.isModalActive = false
+      this.isModalActive = false
+      this.$buefy.snackbar.open({
+        message: 'cancle',
+        queue: false,
+      })
     },
   },
 }

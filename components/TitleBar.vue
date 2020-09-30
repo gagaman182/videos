@@ -5,21 +5,24 @@
         <div class="level-item">
           <ul>
             <li v-for="(title, index) in titleStack" :key="index">
-              {{ title }}
+              <nuxt-link to="/">
+                {{ title }}
+              </nuxt-link>
             </li>
           </ul>
         </div>
       </div>
+      <!-- ข้อความ titlebar ขวา -->
       <div class="level-right">
         <div class="level-item">
           <div class="buttons is-right">
             <a
-              href="https://admin-null-nuxt.justboil.me/"
+              href="https://www.hatyaihospital.go.th/"
               target="_blank"
               class="button is-light"
             >
-              <b-icon icon="credit-card" custom-size="default" />
-              <span>Premium Demo</span>
+              <b-icon icon="hospital-building" custom-size="default" />
+              <span>โรงพยาบาลหาดใหญ่</span>
             </a>
           </div>
         </div>
@@ -35,6 +38,10 @@ export default {
     titleStack: {
       type: Array,
       default: () => [],
+    },
+    links: {
+      type: String,
+      default: null,
     },
   },
 }
