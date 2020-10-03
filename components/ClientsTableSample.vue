@@ -23,14 +23,14 @@
             <img :src="props.row.avatar" class="is-rounded" />
           </div>
         </b-table-column>
-        <b-table-column label="Name" field="name" sortable>
-          {{ props.row.name }}
+        <b-table-column label="Name" field="hn" sortable>
+          {{ props.row.hn }}
         </b-table-column>
-        <b-table-column label="Company" field="company" sortable>
-          {{ props.row.company }}
+        <b-table-column label="Company" field="opddate" sortable>
+          {{ props.row.opddate }}
         </b-table-column>
-        <b-table-column label="City" field="city" sortable>
-          {{ props.row.city }}
+        <b-table-column label="City" field="halfplace" sortable>
+          {{ props.row.halfplace }}
         </b-table-column>
         <b-table-column
           class="is-progress-col"

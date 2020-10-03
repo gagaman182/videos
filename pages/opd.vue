@@ -13,19 +13,16 @@
           label="ค้นหา"
           message="ค้นหาประวัติการรับบริการได้จาก HN โรงพยาบาล"
           horizontal
-          type="is-primary"
         >
-          <b-autocomplete
-            rounded
-            v-model="name"
-            :data="filteredDataArray"
+          <b-input
             placeholder="HN..."
+            type="search"
             icon="magnify"
-            clearable
-            @select="(option) => (selected = option)"
+            v-model="hnsearch"
+            icon-clickable
+            @icon-click="searchIconClick"
           >
-            <template slot="empty">No results found</template>
-          </b-autocomplete>
+          </b-input>
         </b-field>
 
         <b-field horizontal>
@@ -34,24 +31,36 @@
               <b-button
                 native-type="submit"
                 type="is-primary"
-                @click="searchHN()"
+                @click="searchHN"
               >
                 ค้นหา
               </b-button>
             </div>
             <div class="control">
-              <b-button type="is-primary is-outlined" @click="reset">
+              <b-button type="is-primary " @click="reset">
                 รีเซ็ต
               </b-button>
             </div>
           </b-field>
         </b-field>
       </card-component>
-      <card-component title="ประวัติ" icon="ballot-outline">
-        <clients-table-sample
-          :data-url="`${$router.options.base}data-sources/clients.json`"
-        />
-      </card-component>
+      <div class="columns">
+        <div class="column is-one-third">
+          <card-component title="รับบริการ" icon="ballot-outline">
+            <table-search
+              :searchtable="searchtable"
+              :isLoading="isLoading"
+              :paginated="paginated"
+              @detail="detail_opdno"
+            ></table-search>
+          </card-component>
+        </div>
+        <div class="column">
+          <card-component title="รายละเอียด" icon="ballot-outline">
+            <opd-Detail :opddetail="opddetail"></opd-Detail>
+          </card-component>
+        </div>
+      </div>
     </section>
   </div>
 </template>
@@ -61,8 +70,12 @@ import mapValues from 'lodash/mapValues'
 import TitleBar from '@/components/TitleBar'
 import CardComponent from '@/components/CardComponent'
 import ClientsTableSample from '@/components/ClientsTableSample'
-
 import HeroBar from '@/components/HeroBar'
+import TableSearch from '@/components/TableSearch'
+import OpdDetail from '@/components/OpdDetail'
+import axios from 'axios'
+import { APIPath } from '@/backend/APIPath'
+const apiPath = new APIPath()
 export default {
   name: 'Opd',
   components: {
@@ -70,77 +83,105 @@ export default {
     ClientsTableSample,
     CardComponent,
     TitleBar,
+    TableSearch,
+    OpdDetail,
   },
   data() {
     return {
       isLoading: false,
-      form: {
-        name: null,
-        email: null,
-        phone: null,
-        department: null,
-        subject: null,
-        question: null,
-      },
-      customElementsForm: {
-        checkbox: [],
-        radio: null,
-        switch: true,
-        file: null,
-      },
-      departments: ['Business Development', 'Marketing', 'Sales'],
-      data: [
-        'Angular',
-        'Angular 2',
-        'Aurelia',
-        'Backbone',
-        'Ember',
-        'jQuery',
-        'Meteor',
-        'Node.js',
-        'Polymer',
-        'React',
-        'RxJS',
-        'Vue.js',
-      ],
+
       name: '',
       selected: null,
+      searchtable: {
+        hn: '43876/62',
+        opddate: '01/10/2020',
+        halfplace: 'OPD',
+        opdno: '11',
+      },
+
+      hnsearch: null,
+      links: null,
+      isModalActive: false,
+      trashObject: null,
+      clients: [],
+      isLoading: false,
+      paginated: false,
+      perPage: 10,
+      checkedRows: [],
+      name: 'null',
+      surname: '11',
+      opddetail: {
+        hn: null,
+        name: null,
+        idcard: null,
+        rightname: null,
+        opddate: null,
+        age: null,
+        sex: null,
+        docname: null,
+        halfplace: null,
+        visittype: null,
+      },
     }
   },
+  mounted() {},
   computed: {
     titleStack() {
       return ['ประวัติการรับบริการ']
     },
-    filteredDataArray() {
-      // กำหนด limit การค้นหา เท่ากับ 10
-      var count = 0
-      return this.data.filter((option) => {
-        return (
-          option.toString().toLowerCase().indexOf(this.name.toLowerCase()) >=
-            0 && count++ < 10
-        )
-      })
-    },
   },
   methods: {
     searchHN() {
+      this.isLoading = true
       this.$buefy.snackbar.open({
-        message: 'ok555',
+        message: 'เริ่มค้าหา',
+        queue: false,
+      })
+      axios
+        .get(`${apiPath.getBaseUrl()}search_hn_pmk.php`, {
+          params: {
+            hn: this.hnsearch,
+          },
+        })
+        .then((response) => {
+          this.isLoading = false
+          this.searchtable = response.data
+          this.paginated = true
+          this.hnsearch = null
+          this.$buefy.snackbar.open({
+            message: 'ค้นหาเสร็จสิ้น',
+            queue: false,
+          })
+        })
+    },
+    reset() {
+      this.searchtable = []
+      this.hnsearch = null
+
+      this.$buefy.snackbar.open({
+        message: 'รีเซ็ตค่าใหม่',
         queue: false,
       })
     },
-    reset() {
-      this.form = mapValues(this.form, (item) => {
-        if (item && typeof item === 'object') {
-          return []
-        }
-        return null
-      })
-
-      this.$buefy.snackbar.open({
-        message: 'Reset successfully',
-        queue: false,
-      })
+    async detail_opdno(payload) {
+      await axios
+        .get(`${apiPath.getBaseUrl()}opd_pmk.php`, {
+          params: {
+            opdno: payload.opd_no,
+          },
+        })
+        .then((response) => {
+          this.opddetail.hn = response.data[0].hn
+          this.opddetail.name = response.data[0].name
+          this.opddetail.idcard = response.data[0].idcard
+          this.opddetail.rightname = response.data[0].rightname
+          this.opddetail.opddate = response.data[0].opddate
+          this.opddetail.age = response.data[0].age
+          this.opddetail.sex = response.data[0].sex
+          this.opddetail.docname = response.data[0].docname
+          this.opddetail.halfplace = response.data[0].halfplace
+          this.opddetail.visittype = response.data[0].visittype
+        })
     },
   },
   head() {
