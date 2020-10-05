@@ -16,15 +16,29 @@ OPD_WAREHOUSE.HN AS HN,
 to_char(OPD_WAREHOUSE.OPD_DATE,'DD/MM/YYYY', 'NLS_CALENDAR=''THAI BUDDHA'' NLS_DATE_LANGUAGE=THAI') AS OPD_DATE,
 PLACES.HALFPLACE,
 OPD_WAREHOUSE.OPD_NO,
-OPD_WAREHOUSE.OPD_DATE
+OPD_WAREHOUSE.OPD_DATE,
+maxopds.maxopd
+
 FROM
 OPD_WAREHOUSE
 INNER JOIN PLACES ON OPD_WAREHOUSE.PLA_PLACECODE = PLACES.PLACECODE
+INNER JOIN (SELECT
+	hn,
+max(OPD_NO) as maxopd
+FROM
+	OPD_WAREHOUSE
 WHERE
+	OPD_WAREHOUSE.HN = '".$hn."'
+GROUP BY hn)maxopds on OPD_WAREHOUSE.hn = maxopds.hn
+WHERE
+
 OPD_WAREHOUSE.HN = '".$hn."'
-AND MARK_YN = 'Y'
+-- AND MARK_YN = 'Y'
 and OPD_WAREHOUSE.PLA_PLACECODE in ('1221','1228','1223')
-order by OPD_WAREHOUSE.OPD_DATE  desc
+
+order by OPD_WAREHOUSE.OPD_DATE desc
+
+
 
 
 
@@ -44,6 +58,7 @@ while($rs_pmk=oci_fetch_array($objParse,OCI_BOTH)){
 	$a['opddate']=$rs_pmk[1];
 	$a['halfplace']=$rs_pmk[2];
 	$a['opdno']=$rs_pmk[3];
+	$a['maxopd']=$rs_pmk[5];
 
 	
 	

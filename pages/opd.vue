@@ -3,9 +3,6 @@
     <!-- <title-bar :title-stack="titleStack" /> -->
     <hero-bar icon="view-list">
       ประวัติการรับริการ
-      <nuxt-link slot="right" to="/" class="button">
-        Dashboard
-      </nuxt-link>
     </hero-bar>
     <section class="section is-main-section">
       <card-component title="ข้อมูลการรับบริการ" icon="account-circle">
@@ -57,7 +54,29 @@
         </div>
         <div class="column">
           <card-component title="รายละเอียด" icon="ballot-outline">
-            <opd-Detail :opddetail="opddetail"></opd-Detail>
+            <section class="info-tiles">
+              <div class="tile is-ancestor has-text-right">
+                <div class="tile is-parent">
+                  <article class="tile is-child box">
+                    <p class="subtitle">สถานะรับบริการ</p>
+
+                    <span
+                      v-if="(opddetail.markyn == 'ตรวจแล้ว')"
+                      class="tag is-success"
+                      >{{ opddetail.markyn }}</span
+                    >
+                    <span
+                      v-else-if="(opddetail.markyn == 'ไม่ได้ตรวจ')"
+                      class="tag is-danger"
+                      >{{ opddetail.markyn }}</span
+                    >
+                    <span v-else></span>
+
+                    <opd-Detail :opddetail="opddetail"></opd-Detail>
+                  </article>
+                </div>
+              </div>
+            </section>
           </card-component>
         </div>
       </div>
@@ -100,14 +119,12 @@ export default {
       },
 
       hnsearch: null,
-      links: null,
-      isModalActive: false,
+
       trashObject: null,
-      clients: [],
+
       isLoading: false,
       paginated: false,
-      perPage: 10,
-      checkedRows: [],
+
       name: 'null',
       surname: '11',
       opddetail: {
@@ -121,6 +138,8 @@ export default {
         docname: null,
         halfplace: null,
         visittype: null,
+        markyn: null,
+        opdno: null,
       },
     }
   },
@@ -148,6 +167,7 @@ export default {
           this.searchtable = response.data
           this.paginated = true
           this.hnsearch = null
+
           this.$buefy.snackbar.open({
             message: 'ค้นหาเสร็จสิ้น',
             queue: false,
@@ -157,6 +177,18 @@ export default {
     reset() {
       this.searchtable = []
       this.hnsearch = null
+      this.opddetail.hn = null
+      this.opddetail.name = null
+      this.opddetail.idcard = null
+      this.opddetail.rightname = null
+      this.opddetail.opddate = null
+      this.opddetail.age = null
+      this.opddetail.sex = null
+      this.opddetail.docname = null
+      this.opddetail.halfplace = null
+      this.opddetail.visittype = null
+      this.opddetail.markyn = null
+      this.opddetail.opdno = null
 
       this.$buefy.snackbar.open({
         message: 'รีเซ็ตค่าใหม่',
@@ -167,7 +199,7 @@ export default {
       await axios
         .get(`${apiPath.getBaseUrl()}opd_pmk.php`, {
           params: {
-            opdno: payload.opd_no,
+            opdno: payload.opdno,
           },
         })
         .then((response) => {
@@ -181,6 +213,8 @@ export default {
           this.opddetail.docname = response.data[0].docname
           this.opddetail.halfplace = response.data[0].halfplace
           this.opddetail.visittype = response.data[0].visittype
+          this.opddetail.markyn = response.data[0].markyn
+          this.opddetail.opdno = response.data[0].opdno
         })
     },
   },

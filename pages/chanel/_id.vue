@@ -3,70 +3,19 @@
     <!-- <title-bar :title-stack="titleStack" /> -->
     <hero-bar :icon="icon">
       {{ herobar }}
-
-      <!-- <nuxt-link slot="right" to="/" class="button">
-        Dashboard
-      </nuxt-link> -->
     </hero-bar>
     <section class="section is-main-section">
       <card-component title="วีดีโอการสอน" icon="video-vintage">
-        <div class="columns is-desktop">
-          <div class="column">
+        <div
+          class="columns is-mobile"
+          v-for="item in items"
+          :key="item.videoid1"
+        >
+          <div class="column is-12">
             <Video
-              videoid="ZQGsh6tbLwU"
-              title="John Smith"
-              content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-            efficitur sit amet massa fringilla egestas. Nullam condimentum
-            luctus turpis."
-            />
-          </div>
-          <div class="column">
-            <Video
-              videoid="WVyjPVNW_aM"
-              title="John Smith"
-              content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-            efficitur sit amet massa fringilla egestas. Nullam condimentum
-            luctus turpis."
-            />
-          </div>
-        </div>
-        <div class="columns is-desktop">
-          <div class="column">
-            <Video
-              videoid="ZQGsh6tbLwU"
-              title="John Smith"
-              content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-            efficitur sit amet massa fringilla egestas. Nullam condimentum
-            luctus turpis."
-            />
-          </div>
-          <div class="column">
-            <Video
-              videoid="WVyjPVNW_aM"
-              title="John Smith"
-              content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-            efficitur sit amet massa fringilla egestas. Nullam condimentum
-            luctus turpis."
-            />
-          </div>
-        </div>
-        <div class="columns is-desktop">
-          <div class="column">
-            <Video
-              videoid="ZQGsh6tbLwU"
-              title="John Smith"
-              content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-            efficitur sit amet massa fringilla egestas. Nullam condimentum
-            luctus turpis."
-            />
-          </div>
-          <div class="column">
-            <Video
-              videoid="WVyjPVNW_aM"
-              title="John Smith"
-              content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-            efficitur sit amet massa fringilla egestas. Nullam condimentum
-            luctus turpis."
+              :videoid="item.videoid1"
+              :title="item.title1"
+              :content="item.content1"
             />
           </div>
         </div>
@@ -110,6 +59,32 @@ export default {
         file: null,
       },
       departments: ['Business Development', 'Marketing', 'Sales'],
+      items: [
+        {
+          videoid1: 'kKH3rfuINUA',
+          title1: 'ปรับก่อนป่วย : กายภาพบำบัดผู้ป่วยกระดูกสันหลังทับเส้นประสาท',
+          content1:
+            'มาดูกันว่า กระดูกทับเส้นประสาท กับหมอนรองกระดูกทับเส้นประสาท มีความเหมือนและแตกต่างกันอย่างไร แล้วมาฝึกกายภาพบำบัดผู้ป่วยกระดูกสันหลังทับเส้นประสาท  ',
+        },
+        {
+          videoid1: '_esJJrLY_IA',
+          title1: 'กายภาพบำบัดแก้ข้อเข่าเสื่อม : บำบัดง่าย ๆ ด้วยกายภาพ',
+          content1:
+            'ทำไมอาการ "ข้อเข่าเสื่อม" มักเกิดในกลุ่มผู้สูงวัย ดร.กภ.วัลลภ คุณานุสรณ์ชัย จะมาอธิบายรวมถึงแนะนำท่าออกกำลังกายสำหรับผู้ที่มีอาการข้อเข่าเสื่อม เพื่อเพิ่มการเคลื่อนไหวของข้อเข่า',
+        },
+        {
+          videoid1: 'Un9ctXZpa34',
+          title1: 'ปรับก่อนป่วย : กายภาพบำบัดแก้อาการรองช้ำ',
+          content1:
+            'สำหรับใครที่กำลังมีปัญหาเจ็บส้นเท้า จนลามไปทั่วบริเวณฝ่าเท้า คุณอาจจะประสบกับอาการที่เรียกว่า "รองช้ำ" ดังนั้นในช่วงปรับก่อนป่วย กภ.สุธาสินี ทองอ่อน คณะกายภาพบำบัดมหาวิทยาลัยมหิดล',
+        },
+        {
+          videoid1: 'kj5WxcBKJWg',
+          title1: 'รู้สู้โรค : กายภาพบำบัดกลุ่มโรควัยทำงาน',
+          content1:
+            '“กายภาพบำบัดกลุ่มโรควัยทำงาน” ต้องทำอย่างไร? พิทยุตม์ โตขำ นักกายภาพระบบกระดูกและกล้ามเนื้อ จะมาให้คำแนะนำพร้อมวิธีสังเกตอาการปวดต่าง ๆ และการบำบัดด้วยตัวเอง',
+        },
+      ],
     }
   },
   computed: {

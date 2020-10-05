@@ -4,6 +4,15 @@
       <b-message type="is-warning">
         <div class="columns">
           <div class="column is-2">
+            <b-field label="เลขที่รับบริการ">
+              <b-input
+                v-model="opddetail.opdno"
+                custom-class="is-static"
+                readonly
+              />
+            </b-field>
+          </div>
+          <div class="column is-2">
             <b-field label="HN">
               <b-input
                 v-model="opddetail.hn"
@@ -12,7 +21,7 @@
               />
             </b-field>
           </div>
-          <div class="column is-2">
+          <div class="column is-3">
             <b-field label="ชื่อ-สกุล">
               <b-input
                 v-model="opddetail.name"
@@ -39,7 +48,12 @@
               />
             </b-field>
           </div>
-          <div class="column is-4">
+        </div>
+      </b-message>
+
+      <b-message type="is-warning">
+        <div class="columns">
+          <div class="column is-2">
             <b-field label="สิทธิ">
               <b-input
                 v-model="opddetail.rightname"
@@ -48,11 +62,6 @@
               />
             </b-field>
           </div>
-        </div>
-      </b-message>
-
-      <b-message type="is-warning">
-        <div class="columns">
           <div class="column is-1">
             <b-field label="อายุ">
               <b-input
@@ -71,7 +80,7 @@
               />
             </b-field>
           </div>
-          <div class="column is-4">
+          <div class="column is-3">
             <b-field label="แพทย์">
               <b-input
                 v-model="opddetail.docname"
@@ -80,7 +89,7 @@
               />
             </b-field>
           </div>
-          <div class="column is-3">
+          <div class="column is-2">
             <b-field label="ห้องตรวจ">
               <b-input
                 v-model="opddetail.halfplace"
@@ -100,7 +109,20 @@
           </div>
         </div>
       </b-message>
-      <hr />
+      <b-message type="is-info">
+        <div class="columns is-desktop">
+          <div class="column">อาการทั่วไป</div>
+        </div>
+      </b-message>
+      <b-message type="is-danger">
+        <div class="columns is-desktop">
+          <div class="column">โรค</div>
+          <div class="column">ยา</div>
+        </div>
+        <div class="columns is-desktop">
+          <div class="column">หัตถการ</div>
+        </div>
+      </b-message>
     </section>
   </div>
 </template>

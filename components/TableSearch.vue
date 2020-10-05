@@ -10,6 +10,7 @@
       :hoverable="true"
       default-sort="name"
       :data="searchtable"
+      scrollable="true"
     >
       <div slot="empty">ข้อมูลการรับบริการ</div>
       <template slot-scope="props">
@@ -91,7 +92,7 @@ export default {
       isModalActive: false,
       isLoading: false,
       paginated: false,
-      perPage: 10,
+      perPage: 15,
     }
   },
   computed: {},
@@ -101,7 +102,7 @@ export default {
       this.$emit(
         'detail',
 
-        { opd_no: row.opdno }
+        { opdno: row.opdno }
       )
     },
   },

@@ -9,10 +9,11 @@
             <br />
             {{ content }}
           </p>
-          <div v-blur="blurConfig">
-            <youtube :video-id="videoid" />
-          </div>
-
+          <center>
+            <div v-blur="blurConfig">
+              <youtube :video-id="videoid" />
+            </div>
+          </center>
           <div class="field">
             <b-checkbox size="is-large" @input="noblur" v-model="seevideo"
               >ดูคลิป</b-checkbox
@@ -72,8 +73,8 @@ export default {
 </script>
 <style>
 iframe {
-  width: 40vw;
-  height: 20vw;
+  width: 70vw;
+  height: 30vw;
 }
 
 /* iframe{

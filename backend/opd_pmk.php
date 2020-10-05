@@ -24,7 +24,9 @@ OPD_WAREHOUSE.PATIENT_AGE as age,
  when OPD_WAREHOUSE.OPD_VISIT_TYPE = 'D' THEN 'นัด'
  when OPD_WAREHOUSE.OPD_VISIT_TYPE = 'O' THEN 'Own visit'
  when OPD_WAREHOUSE.OPD_VISIT_TYPE = 'W' THEN 'Ward'
- when OPD_WAREHOUSE.OPD_VISIT_TYPE = 'C' THEN 'Consult' end as visittype
+ when OPD_WAREHOUSE.OPD_VISIT_TYPE = 'C' THEN 'Consult' end as visittype,
+ case when MARK_YN = 'Y' then 'ตรวจแล้ว'  else 'ไม่ได้ตรวจ'  end as MARK_YN,
+ OPD_WAREHOUSE.OPD_NO as opdno
 
 FROM
 	OPD_WAREHOUSE
@@ -58,7 +60,8 @@ while($rs_pmk=oci_fetch_array($objParse,OCI_BOTH)){
     $a['docname']=$rs_pmk[7];
     $a['halfplace']=$rs_pmk[8];
     $a['visittype']=$rs_pmk[9];
-
+    $a['markyn']=$rs_pmk[10];
+    $a['opdno']=$rs_pmk[11];
 
 	
 	
